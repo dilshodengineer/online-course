@@ -1,13 +1,20 @@
-import { Navigate, Outlet } from 'react-router';
+import { Navigate, Outlet } from "react-router";
 
 const GuestRoute = () => {
-  const token = localStorage.getItem("token");
 
-  if (token) {
-    return <Navigate to="/dashboard" replace />;
-  }
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user" || 'null'));
 
-  return <Outlet />;
-}
+    if (token && user) {
+
+        if (user.role === "admin") {
+            return <Navigate to="/dashboard" replace />;
+        }
+
+        return <Navigate to="/profile" replace />;
+    }
+
+    return <Outlet />;
+};
 
 export default GuestRoute;

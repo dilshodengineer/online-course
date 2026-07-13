@@ -25,15 +25,17 @@ const AppRouter = () => {
 
         <Route element={<ProtectedRoute />}>
 
-          <Route path='/profile' element={<Profile />} />
+          <Route element={<RoleRoute roles={["student"]} />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
 
-          <Route element={<RoleRoute roles={['admin']} />}>
-            <Route path='/dashboard' element={<AdminLayout />} >
+          <Route element={<RoleRoute roles={["admin"]} />}>
+            <Route path="/dashboard" element={<AdminLayout />}>
               <Route index element={<Home />} />
-              <Route path='courses' element={<Courses />} />
-              <Route path='applications' element={<Applications />} />
-              <Route path='pricing' element={<Pricing />} />
-              <Route path='settings' element={<Settings />} />
+              <Route path="courses" element={<Courses />} />
+              <Route path="applications" element={<Applications />} />
+              <Route path="pricing" element={<Pricing />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
           </Route>
 
