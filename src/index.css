@@ -1,0 +1,58 @@
+* {
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+  flex-shrink: 0;
+}
+.main{
+  margin-left: 260px;
+}
+.navbar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.sidebar-item{
+  margin: 2px 0px;
+  border-radius: 5px;
+  display: block;
+  padding: 8px 10px;
+  color: #fff;
+  text-decoration: none;
+}
+.sidebar-item.active{
+  background: #fff;
+  color: #221f1f;
+  font-weight: 500;
+}
+.sidebar-item:hover{
+  transition: 0.1s all linear;
+  background: #ffffff79;
+}
+
+@media (max-width:991px) {
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+  }
+  .main{
+    margin-left: 0;
+  }
+  .navbar{
+    margin-left: 0;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+}
