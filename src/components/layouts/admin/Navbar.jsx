@@ -1,14 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import LogoutBtn from '../../ui/LogoutBtn';
 
 const Navbar = ({ setSidebarOpen }) => {
-
-    const navigate = useNavigate();
-
-    const logout = () => {
-        localStorage.clear();
-        navigate('/');
-    }
 
     return (
         <nav className="navbar bg-white shadow-sm px-3 d-flex justify-content-between">
@@ -20,12 +14,8 @@ const Navbar = ({ setSidebarOpen }) => {
                 <i className="bi bi-list"></i>
             </button>
 
-            <button
-                className="btn btn-dark btn-sm d-flex gap-2"
-                onClick={logout}
-            >
-                <i className="bi bi-person-circle"></i> Chiqish <i className="bi bi-escape"></i>
-            </button>
+            <LogoutBtn/>
+
         </nav>
     )
 }

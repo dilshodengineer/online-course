@@ -1,8 +1,12 @@
 import React from 'react'
+import LogoutBtn from '../../components/ui/LogoutBtn'
 
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <div>
+      <h3>Profile</h3>
+      <LogoutBtn/>
+    </div>
   )
 }
 
