@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Input = ({
     type = "text",
@@ -13,7 +13,7 @@ const Input = ({
     return (
         <div className={className}>
             {label && (
-                <label htmlFor={id} className='mb-2'>
+                <label htmlFor={id} className='mb-1'>
                     {label}
                 </label>
             )}
@@ -30,4 +30,4 @@ const Input = ({
     )
 }
 
-export default Input
+export default Input;
