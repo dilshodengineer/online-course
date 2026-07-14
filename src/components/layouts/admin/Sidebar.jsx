@@ -3,8 +3,8 @@ import { NavLink } from 'react-router';
 import { sidebarData } from '../../../constants/sidebarData';
 
 const Sidebar = ({ open, setOpen }) => {
-  return (
-    <>
+    return (
+        <>
             {/* Backdrop */}
             {open && (
                 <div
@@ -35,8 +35,8 @@ const Sidebar = ({ open, setOpen }) => {
                         open
                             ? "translateX(0)"
                             : window.innerWidth < 992
-                            ? "translateX(-100%)"
-                            : "translateX(0)"
+                                ? "translateX(-100%)"
+                                : "translateX(0)"
                 }}
             >
 
@@ -65,10 +65,9 @@ const Sidebar = ({ open, setOpen }) => {
                                 to={menu.path}
                                 end={menu.path === "/dashboard"}
                                 className={({ isActive }) =>
-                                    `sidebar-item ${
-                                        isActive
-                                            ? "active"
-                                            : "text-white"
+                                    `sidebar-item ${isActive
+                                        ? "active"
+                                        : "text-white"
                                     }`
                                 }
                                 onClick={() => setOpen(false)}
@@ -86,7 +85,7 @@ const Sidebar = ({ open, setOpen }) => {
 
             </aside>
         </>
-  )
+    )
 }
 
 export default Sidebar
