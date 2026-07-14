@@ -12,6 +12,7 @@ import SignUp from '../pages/auth/SignUp';
 import ProtectedRoute from './ProtectedRoute';
 import GuestRoute from './GuestRoute';
 import RoleRoute from './RoleRoute';
+import CreateCourse from '../pages/admin/courses/CreateCourse';
 
 const AppRouter = () => {
   return (
@@ -33,6 +34,7 @@ const AppRouter = () => {
             <Route path="/dashboard" element={<AdminLayout />}>
               <Route index element={<Home />} />
               <Route path="courses" element={<Courses />} />
+              <Route path='courses/create' element={<CreateCourse/>} />
               <Route path="applications" element={<Applications />} />
               <Route path="pricing" element={<Pricing />} />
               <Route path="settings" element={<Settings />} />
