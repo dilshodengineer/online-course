@@ -90,7 +90,6 @@ const CreateCourseForm = ({
 
   return (
     <form onSubmit={handleSubmit} className='col-md-7'>
-
       <Input
         type='text'
         name='title'

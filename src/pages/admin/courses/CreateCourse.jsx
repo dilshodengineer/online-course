@@ -4,7 +4,8 @@ import CreateCourseForm from '../../../components/forms/CreateCourseForm'
 
 const CreateCourse = () => {
   return (
-    <Container title="Yangi kurs yaratish.">
+    <Container>
+      <h4>Yangi kurs yaratish</h4>
       <CreateCourseForm/>
     </Container>
   )
