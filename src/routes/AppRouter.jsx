@@ -13,6 +13,7 @@ import ProtectedRoute from './ProtectedRoute';
 import GuestRoute from './GuestRoute';
 import RoleRoute from './RoleRoute';
 import CreateCourse from '../pages/admin/courses/CreateCourse';
+import EditCourse from '../pages/admin/courses/EditCourse';
 
 const AppRouter = () => {
   return (
@@ -33,10 +34,15 @@ const AppRouter = () => {
           <Route element={<RoleRoute roles={["admin"]} />}>
             <Route path="/dashboard" element={<AdminLayout />}>
               <Route index element={<Home />} />
+
               <Route path="courses" element={<Courses />} />
-              <Route path='courses/create' element={<CreateCourse/>} />
+              <Route path='courses/create' element={<CreateCourse />} />
+              <Route path='courses/:id/edit' element={<EditCourse />} />
+
               <Route path="applications" element={<Applications />} />
+
               <Route path="pricing" element={<Pricing />} />
+
               <Route path="settings" element={<Settings />} />
             </Route>
           </Route>

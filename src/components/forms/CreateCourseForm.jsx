@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../ui/Input';
 import FileInput from '../ui/FileInput';
-import { createCourse } from '../../services/courseService';
+import { createCourse, updateCourse } from '../../services/courseService';
+import { useNavigate } from 'react-router';
+import { getImageUrl } from '../../utils/getImageUrl';
 
-const CreateCourseForm = () => {
+const CreateCourseForm = ({
+  initialData = null,
+  isEdit = false,
+}) => {
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate()
 
   const [form, setForm] = useState({
-    title: "",
-    price: "",
-    description: "",
+    title: initialData?.title || "",
+    price: initialData?.price || "",
+    description: initialData?.description || "",
     image: null,
   });
+
+  useEffect(() => {
+    if (initialData) {
+      setForm({
+        title: initialData.title,
+        price: initialData.price,
+        description: initialData.description,
+        image: null,
+      });
+    }
+  }, [initialData]);
+
 
   const handleChange = (e) => {
     setForm({
@@ -21,12 +39,14 @@ const CreateCourseForm = () => {
     });
   };
 
+
   const handleImageChange = (e) => {
     setForm({
       ...form,
       image: e.target.files[0],
     });
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,30 +55,32 @@ const CreateCourseForm = () => {
 
     const formData = new FormData();
 
-    formData.append("title", form.title);
-    formData.append("price", form.price);
-    formData.append("description", form.description);
-
-    if (form.image) {
-      formData.append("image", form.image);
-    }
+    Object.entries(form).forEach(([key, value]) => {
+      if (value !== null) {
+        formData.append(key, value);
+      }
+    });
 
     try {
-      const { data } = await createCourse(formData);
+      if (isEdit) {
+        await updateCourse(initialData.id, formData);
+      } else {
+        await createCourse(formData);
+      }
 
-      setForm({
-        title: "",
-        price: "",
-        description: "",
-        image: null,
-      });
+      navigate("/dashboard/courses");
 
-      alert("Kurs muvaffaqiyatli yaratildi");
     } catch (error) {
+      // if (error.response?.status === 422) {
+      //     setErrors(error.response.data.errors);
+      // } else {
+      //     console.error(error);
+      // }
+
+      console.log(error.response.data);
+
       if (error.response?.status === 422) {
         setErrors(error.response.data.errors);
-      } else {
-        console.error(error);
       }
     }
   };
@@ -118,6 +140,23 @@ const CreateCourseForm = () => {
         </div>
       )}
 
+      {isEdit && initialData?.image && (
+        <div className="mt-3">
+          <label className="mb-2">Joriy rasm</label>
+
+          <img
+            src={getImageUrl(initialData.image)}
+            alt={initialData.title}
+            className="img-thumbnail d-block mt-3"
+            style={{
+              width: "220px",
+              height: "140px",
+              objectFit: "cover",
+            }}
+          />
+        </div>
+      )}
+
       <FileInput
         className='mt-3'
         name="image"
@@ -135,8 +174,9 @@ const CreateCourseForm = () => {
 
       <button
         className="btn btn-primary mt-3 px-4 rounded-5"
-        type='submit'>
-        Saqlash
+        type="submit"
+      >
+        {isEdit ? "Yangilash" : "Saqlash"}
       </button>
 
 

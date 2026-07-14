@@ -13,7 +13,7 @@ export const getCourse = (id) => {
 };
 
 export const updateCourse = (id, formData) => {
-    return api.post(`/courses/${id}`, formData);
+    return api.put(`/courses/${id}`, formData);
 };
 
 export const deleteCourse = (id) => {
