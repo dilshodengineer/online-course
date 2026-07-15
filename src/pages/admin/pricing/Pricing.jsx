@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Container from '../../../components/layouts/admin/Container';
 import { Link } from 'react-router';
 import PricingCard from '../../../components/ui/PricingCard';
-import { getPricings } from '../../../services/pricingService';
+import { getPricings, deletePricing } from '../../../services/pricingService';
 
 const Pricing = () => {
   const [pricings, setPricings] = useState([]);
@@ -20,6 +20,20 @@ const Pricing = () => {
     fetchPricings();
   }, []);
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Tarifni o'chirmoqchimisiz?")) {
+      return;
+    }
+
+    try {
+      await deletePricing(id);
+
+      setPricings((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <Container>
@@ -34,7 +48,10 @@ const Pricing = () => {
           key={pricing.id}
           className="col-xl-4 col-md-6 mt-4"
         >
-          <PricingCard pricing={pricing} />
+          <PricingCard
+            pricing={pricing}
+            onDelete={handleDelete}
+          />
         </div>
       ))}
 

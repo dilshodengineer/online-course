@@ -15,6 +15,7 @@ import RoleRoute from './RoleRoute';
 import CreateCourse from '../pages/admin/courses/CreateCourse';
 import EditCourse from '../pages/admin/courses/EditCourse';
 import CreatePricing from '../pages/admin/pricing/CreatePricing';
+import EditPricing from '../pages/admin/pricing/EditPricing';
 
 const AppRouter = () => {
   return (
@@ -44,6 +45,7 @@ const AppRouter = () => {
 
               <Route path="pricing" element={<Pricing />} />
               <Route path='pricing/create' element={<CreatePricing />} />
+              <Route path='pricing/:id/edit' element={<EditPricing />} />
 
               <Route path="settings" element={<Settings />} />
             </Route>

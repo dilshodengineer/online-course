@@ -1,16 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../ui/Input';
-import { createPricing } from '../../services/pricingService';
+import {
+    createPricing,
+    updatePricing,
+} from '../../services/pricingService';
+import { useNavigate } from 'react-router';
 
-const CreatePricingForm = () => {
+const CreatePricingForm = ({
+    initialData = null,
+    isEdit = false,
+}) => {
 
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        title: '',
-        price: '',
-        description: '',
+        title: initialData?.title || '',
+        price: initialData?.price || '',
+        description: initialData?.description || '',
     });
 
+    useEffect(() => {
+        if (initialData) {
+            setFormData({
+                title: initialData.title,
+                price: initialData.price,
+                description: initialData.description,
+            });
+        }
+    }, [initialData]);
 
     const handleChange = (e) => {
         setFormData({
@@ -19,22 +36,18 @@ const CreatePricingForm = () => {
         });
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await createPricing(formData);
 
-            console.log(response);
+            if (isEdit) {
+                await updatePricing(initialData.id, formData);
+            } else {
+                await createPricing(formData);
+            }
 
-            alert("Tarif muvaffaqiyatli yaratildi!");
-
-            setFormData({
-                title: '',
-                price: '',
-                description: '',
-            });
+            navigate('/dashboard/pricing');
 
         } catch (error) {
             console.log(error);
@@ -42,48 +55,49 @@ const CreatePricingForm = () => {
         }
     };
 
-
     return (
-        <form className='col-md-7' onSubmit={handleSubmit}>
+        <form className="col-md-7" onSubmit={handleSubmit}>
             <Input
-                type='text'
-                name='title'
-                placeholder='Tarif nomi'
+                type="text"
+                name="title"
+                placeholder="Tarif nomi"
                 label="Tarif nomi"
                 value={formData.title}
                 onChange={handleChange}
-                className='mt-3'
+                className="mt-3"
             />
 
             <Input
-                type='text'
-                name='price'
-                placeholder='Tarif narxi'
-                label="Tarif nomi"
+                type="number"
+                name="price"
+                placeholder="Tarif narxi"
+                label="Tarif narxi"
                 value={formData.price}
                 onChange={handleChange}
-                className='mt-3'
+                className="mt-3"
             />
 
-            <label htmlFor="description" className='mt-3'>Tarif haqida</label>
-            <br />
+            <label htmlFor="description" className="mt-3">
+                Tarif haqida
+            </label>
+
             <textarea
                 name="description"
                 id="description"
-                className='form-control'
-                placeholder='Tarif haqida'
+                className="form-control"
+                placeholder="Tarif haqida"
                 value={formData.description}
                 onChange={handleChange}
-            ></textarea>
+            />
 
             <button
-                type='submit'
-                className="btn btn-primary px-3 rounded-5 mt-3"
+                type="submit"
+                className="btn btn-primary px-4 rounded-5 mt-3"
             >
-                Yaratsh
+                {isEdit ? "Yangilash" : "Saqlash"}
             </button>
         </form>
-    )
-}
+    );
+};
 
-export default CreatePricingForm
+export default CreatePricingForm;

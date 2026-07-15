@@ -1,6 +1,6 @@
-import React from 'react'
-import Container from '../../../components/layouts/admin/Container'
-import CreatePricingForm from '../../../components/forms/CreatePricingForm'
+import React from 'react';
+import Container from '../../../components/layouts/admin/Container';
+import CreatePricingForm from '../../../components/forms/CreatePricingForm';
 
 const CreatePricing = () => {
   return (
@@ -12,4 +12,4 @@ const CreatePricing = () => {
   )
 }
 
-export default CreatePricing
+export default CreatePricing;

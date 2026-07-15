@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const PricingCard = ({ pricing }) => {
+const PricingCard = ({ pricing, onDelete }) => {
     return (
         <div className='card'>
             <div className="card-body">
@@ -17,7 +17,10 @@ const PricingCard = ({ pricing }) => {
                 </p>
 
                 <div className="d-flex justify-content-end gap-2">
-                    <button className="btn btn-sm btn-danger py-1">
+                    <button 
+                    onClick={() => onDelete(pricing.id)}
+                    className="btn btn-sm btn-danger py-1"
+                    >
                         <i className="bi bi-trash-fill"></i>
                     </button>
 
